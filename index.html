@@ -1,32 +1,39 @@
 <!DOCTYPE html>
-
 <html lang="en-us">
 
 <head>
 
     <meta charset="UTF-8">
-    <title>CoderBay</title>
-
-    <!-- jQuery -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-    <!-- Bootstrap CDN-->
+    <title>CrunchyGifs</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" src="assets/css"/>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-
-    <!-- Firebase Reference -->
-    <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
-
+    
 </head>
 
 <body>
-
+    
     <div class="container">
-
+        <div id="buttons-view">
+        </div>
+        <form id='topic-form'>
+            <label for="topic-input">Add a new topic!</label>
+            <input type="text" id="topic-input">
+            <button type="submit" id="add-topic" class="waves-effect waves-light btn" name="action">Add Topic<i class="material-icons right">search</i></button>
+        </form>
+        
+        <div id="gifs-space">
+        </div>
+        
     </div>
-
+    
+    
+    <!-- jQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- JavaScript -->
     <script src="assets/app.js"></script>
+
 
 </body>
 
