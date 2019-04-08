@@ -20,20 +20,35 @@
         </div>
 
         <div class="row">
-            <div class="col s12 m8">
-                
+            <div class="input-field inline col s12 m8">
+
                 <!-- search bar element -->
                 <form id='topic-form'>
-                    <label for="topic-input"><h5>Add a new topic!</h5></label>
-                    <input type="text" id="topic-input">
-                    <button type="submit" id="add-topic" class="waves-effect waves-light btn" name="action">Add Topic<i
+                    <button type="submit" id="add-topic" class="waves-effect waves-light btn right" name="action">Add Topic<i
                             class="material-icons right">add</i></button>
+                    <label for="topic-input">
+                        Add a new topic!
+                    </label>
+                    <input type="text" id="topic-input" class="validate">
                 </form>
             </div>
         </div>
 
         <div class="row">
-            <!-- gif appear here -->
+            <!--  favorite gifs appear here -->
+            <span type='text' class='center'>
+                <h5>Favorites:</h5>
+            </span>
+            <div id="favorite-space" class="col s12 m10">
+            </div>
+            <hr>
+        </div>
+
+        <div class="row">
+            <span type='text' class='center'>
+                <h5>Results:</h5>
+            </span>
+            <!-- gifs appear here -->
             <div id="gifs-space" class="col s12 m10">
             </div>
         </div>

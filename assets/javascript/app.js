@@ -3,7 +3,7 @@ class CrunchyGif {
     constructor() {
 
         this.topics = ['doge', 'fractals', 'psychedelic', 'rick flair', 'ron burgundy', 'tropic thunder', 'space'];
-        // this.currentTopic = [];
+        this.currentTopic = [];
         // let ratings = ['g', 'pg', 'pg13', 'r'];     
         // this.rating = 'r';
 
@@ -60,8 +60,24 @@ class CrunchyGif {
             // Creating and storing a div tag
             var gifCard = $("<div>");
 
+            //download button
+            let downloadBtn = $('<a>');
+            downloadBtn.attr('href', gifObjArray[i].images.original.url);
+            downloadBtn.attr('download', 'CrunchyGif');
+            downloadBtn.addClass('btn collection-item');
+            downloadBtn.text('DOWNLOAD')
+            downloadBtn.append('<i class="material-icons right">save</i>');
+
+            // favorite button
+            let favoriteBtn = $('<a>');
+            favoriteBtn.addClass('btn favoriteBtn collection-item');
+            favoriteBtn.text('Favorite');
+            favoriteBtn.append('<i class="material-icons right">favorite</i>');
+
             // Creating a paragraph tag with the result item's rating
-            var info = $("<p>").text("Rating: " + gifObjArray[i].rating);
+            var info = $("<p>");
+            info.text("Rating: " + gifObjArray[i].rating + ' ');
+            info.addClass('collection-item');
 
             // Creating and storing an image tag
             var gifImage = $("<img>");
@@ -76,6 +92,7 @@ class CrunchyGif {
 
             // Appending the paragraph and image tag to the animalDiv
             gifCard.append(gifImage);
+            info.append(favoriteBtn, downloadBtn);
             gifCard.append(info);
 
             // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
@@ -115,6 +132,7 @@ class CrunchyGif {
                 // Reject the promise if no results for keyword
                 if (response.Error) reject('No Crunchiness here =[');
                 // call the render gifs function with response as an arg
+                this.currentTopic = response.data;
                 this.renderGifs(response);
             });
         });
