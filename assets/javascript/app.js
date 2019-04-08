@@ -75,8 +75,8 @@ class CrunchyGif {
             gifImage.addClass('gif responsive-img');
 
             // Appending the paragraph and image tag to the animalDiv
-            gifCard.append(info);
             gifCard.append(gifImage);
+            gifCard.append(info);
 
             // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
             $("#gifs-space").prepend(gifCard);
