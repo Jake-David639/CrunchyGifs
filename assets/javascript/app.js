@@ -1,33 +1,36 @@
-Class CrunchyGif = {
+class CrunchyGif {
 
     constructor() {
 
-        this.APIkey = 'HwvU5T8lYgcO6IUp9uCaN02WQDRY6Lt9';
-        this.rating = 'r';
-        this.queryURL = 'http://api.giphy.com/v1/gifs/search?q=' + keyWord + '&api_key=' + APIkey + '&limit=10';
         this.topics = ['doge', 'fractals', 'psychedelic', 'rick flair', 'ron burgundy', 'tropic thunder', 'space'];
-        this.currentTopic = {};
+        // this.currentTopic = [];
         // let ratings = ['g', 'pg', 'pg13', 'r'];     
+        // this.rating = 'r';
 
     }
-        
-        async setContext (topic) {
 
-        if (Object.keys(this.currentTopic).length === 0) {
-            // wait for the promise to either resolve or reject
-            // try/catch block so the application doesn't crash if the promise rejects
-            try {
-                const response = await this.getTopic(topic);
-                this.currentTopic = response;
-            } catch (err) {
-                // this block should never be entered.
-                console.log(err);
-            }
-        }
-    }
+    //couldnt figure this section out
+    // =======================================
 
-        // Render buttons with topic tag to page 
-        renderButtons () {
+    // async setContext(topic) {
+
+    //     if (this.currentTopic.length === 0) {
+    //         // wait for the promise to either resolve or reject
+    //         // try/catch block so the application doesn't crash if the promise rejects
+    //         try {
+    //             const response = await this.getGifs(topic);
+    //             this.currentTopic = response;
+    //         } catch (err) {
+    //             // this block should never be entered.
+    //             console.log(err);
+    //         }
+    //     }
+    // }
+
+    // ========================================
+
+    // Render buttons with topic tag to page 
+    renderButtons() {
         // Deleting the button prior to adding new buttons to avoid duplicates
         $('#buttons-view').empty();
 
@@ -36,7 +39,7 @@ Class CrunchyGif = {
             // Then dynamicaly generating buttons for each topic in the array
             const topicBtn = $('<a>');
             // Adding a class of movie-btn to our button (along with Materialize classes)
-            topicBtn.addClass('topic-btn collection-item');
+            topicBtn.addClass('topic-btn collection-item btn');
             // Adding a data-attribute
             topicBtn.attr('data-topic', this.topics[i]);
             // Providing the initial button text
@@ -46,67 +49,76 @@ Class CrunchyGif = {
         }
     }
 
-        //render results to the page
-        renderGifs (gifObject) {
+    //render results to the page
+    renderGifs(response) {
 
-        // Creating and storing a div tag
-        var gifCard = $("<div>");
+        let gifObjArray = response.data;
+        console.log(gifObjArray);
 
-        // Creating a paragraph tag with the result item's rating
-        var info = $("<p>").text("Rating: " + gifObject.rating);
+        for (let i = 0; i < gifObjArray.length; i++) {
 
-        // Creating and storing an image tag
-        var gifImage = $("<img>");
+            // Creating and storing a div tag
+            var gifCard = $("<div>");
 
-        // Setting the src attribute to the still state url of the result gifObject by detault
-        // set animated url as another attribute to allow for on click animation
-        gifImage.attr('src', gifObject.images.original_still.url);
-        gifImage.attr('data-state', 'still');
-        gifImage.attr('data-still', gifObject.images.original_still.url);
-        gifImage.attr('data-animate', gifObject.images.original.url);
-        gifImage.addClass('gif');
+            // Creating a paragraph tag with the result item's rating
+            var info = $("<p>").text("Rating: " + gifObjArray[i].rating);
 
-        // Appending the paragraph and image tag to the animalDiv
-        gifCard.append(info);
-        gifCard.append(gifImage);
+            // Creating and storing an image tag
+            var gifImage = $("<img>");
 
-        // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
-        $("#gifs-appear-here").prepend(gifCard);
+            // Setting the src attribute to the still state url of the result gifObject by detault
+            // set animated url as another attribute to allow for on click animation
+            gifImage.attr('src', gifObjArray[i].images.original_still.url);
+            gifImage.attr('data-state', 'still');
+            gifImage.attr('data-still', gifObjArray[i].images.original_still.url);
+            gifImage.attr('data-animate', gifObjArray[i].images.original.url);
+            gifImage.addClass('gif responsive-img');
+
+            // Appending the paragraph and image tag to the animalDiv
+            gifCard.append(info);
+            gifCard.append(gifImage);
+
+            // Prependng the animalDiv to the HTML page in the "#gifs-appear-here" div
+            $("#gifs-space").prepend(gifCard);
+        }
 
     }
 
-        // Add topic to topics array and call renderButtons if it exists
-        // need to pass event Object as arg to function to avoid context issues  
-        addTopic (event) {
+    // Add topic to topics array and call renderButtons if it exists
+    // need to pass event Object as arg to function to avoid context issues  
+    addTopic(event) {
+
         event.preventDefault();
         // This line grabs the input from the textbox
-        const topic = $('#search-input').val().trim();
-        // Get the result of the getMovie promise
-        this.getMovie(movie).then(response => {
-            this.topics.push(movie);
-            this.currentTopic = response;
-            this.renderButtons();
-        }).catch(err => {
-            //
-            console.log(err);
-            alert(`No results for ${topic} on Giphy =[ \nTry a different search!`);
-        });
+        const topic = $('#topic-input').val().trim();
+        // Get the result of the getTopic promise
+        // this.getGifs(topic).then(response => {
+        this.topics.push(topic);
+        // this.currentTopic = response;
+        this.renderButtons();
+        //     }).catch(err => {
+        //         //
+        //         console.log(err);
+        //         alert(`No results for ${topic} on Giphy =[ \nTry a different search!`);
+        //     });
     }
 
-        getTopic (topic) {
+    // returns the array of gifObjects
+    getGifs(topic) {
+        let queryURL = 'http://api.giphy.com/v1/gifs/search?q=' + topic + '&api_key=HwvU5T8lYgcO6IUp9uCaN02WQDRY6Lt9&limit=10';
+
         return new Promise((resolve, reject) => {
             $.ajax({
-                url: this.queryURL,
+                url: queryURL,
                 method: 'GET'
-            }).then(topic => {
+            }).then(response => {
                 // Reject the promise if no results for keyword
-                if (topic.Error) reject('No Crunchiness here =[');
-                // Resolve and return the responce object
-                resolve(topic);
+                if (response.Error) reject('No Crunchiness here =[');
+                // call the render gifs function with response as an arg
+                this.renderGifs(response);
             });
         });
     }
-
 
 }
 
@@ -115,7 +127,8 @@ Class CrunchyGif = {
 const gifApp = new CrunchyGif();
 gifApp.renderButtons();
 
-$(".gif").on("click", function () {
+$(document).on("click", '.gif', function () {
+    console.log('you have clicked a gif!')
 
     var state = $(this).attr("data-state");
     // If the clicked image's state is still, update its src attribute to what its data-animate value is.
@@ -131,7 +144,7 @@ $(".gif").on("click", function () {
 });
 
 
-// This handles events where a topic button is clicked
+// This handles the  add topic button
 $('#add-topic').on('click', (event) => {
     gifApp.addTopic(event);
 });
@@ -139,5 +152,6 @@ $('#add-topic').on('click', (event) => {
 // listener for click events on all elements with class 'topic-btn'
 $(document).on('click', '.topic-btn', function () {
     const topic = $(this).attr('data-topic');
-    gifApp.renderGifs(topic);
+    console.log('you clicked ' + topic);
+    gifApp.getGifs(topic);
 });

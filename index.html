@@ -7,32 +7,45 @@
     <title>CrunchyGifs</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" src="assets/css"/>
-    
+    <link rel="stylesheet" src="assets/css" />
+
 </head>
 
 <body>
-    
+
     <div class="container">
-        <div id="buttons-view">
+        <div class="row">
+            <!-- buttons appear here -->
+            <div id="buttons-view" class="col s12 m8"></div>
         </div>
-        <form id='topic-form'>
-            <label for="topic-input">Add a new topic!</label>
-            <input type="text" id="topic-input">
-            <button type="submit" id="add-topic" class="waves-effect waves-light btn" name="action">Add Topic<i class="material-icons right">search</i></button>
-        </form>
-        
-        <div id="gifs-space">
+
+        <div class="row">
+            <div class="col s12 m8">
+                
+                <!-- search bar element -->
+                <form id='topic-form'>
+                    <label for="topic-input"><h5>Add a new topic!</h5></label>
+                    <input type="text" id="topic-input">
+                    <button type="submit" id="add-topic" class="waves-effect waves-light btn" name="action">Add Topic<i
+                            class="material-icons right">add</i></button>
+                </form>
+            </div>
         </div>
-        
+
+        <div class="row">
+            <!-- gif appear here -->
+            <div id="gifs-space" class="col s12 m10">
+            </div>
+        </div>
+
     </div>
-    
-    
+
+
     <!-- jQuery -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <!-- JavaScript -->
-    <script src="assets/app.js"></script>
+    <script src="assets//javascript/app.js"></script>
 
 
 </body>
